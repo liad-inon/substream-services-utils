@@ -1,0 +1,8 @@
+.idea/
+tests/data/audio_files
+.mypy_cache/
+__pycache__/
+*.egg-info/
+build/
+.vscode/
+*.log
