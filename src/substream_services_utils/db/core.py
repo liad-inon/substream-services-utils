@@ -8,8 +8,6 @@ from google.cloud.firestore_v1 import Client
 from .firestore_wrappers import FirestoreCollection
 from .schemas import UserData, TranscriptionJobProgress, USER_DATA_COLLECTION, TRANSCRIPTION_JOB_PROGRESS_COLLECTION
 
-FIREBASE_EMULATOR_PROJECT_ID = "firebase-emulator"
-
 
 class DataBaseAccess:
     def __init__(self, db_client: Client):
@@ -28,10 +26,14 @@ class DataBaseAccess:
 def init_firebase(
         firebase_service_account_key_path: str,
         using_firebase_emulator=False,
+        firebase_emulator_project_id: str=None
 ):
     if using_firebase_emulator:
+        if not firebase_emulator_project_id:
+            raise ValueError("firebase_emulator_project_id argument is None.")
+
         cred = AnonymousCredentials()
-        options = {"projectId": FIREBASE_EMULATOR_PROJECT_ID}
+        options = {"projectId": firebase_emulator_project_id}
     else:
         cred = credentials.Certificate(firebase_service_account_key_path)
         options = {}
