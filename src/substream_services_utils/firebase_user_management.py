@@ -1,28 +1,17 @@
-from typing import Optional
-
 from fastapi import Depends, HTTPException
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from firebase_admin import auth
 
-_is_local_testing_on = False
-_test_user_uuid: Optional[str] = None
+from substream_services_utils.config import get_is_local_testing_on, get_test_user_uuid
 
 _auth_scheme = HTTPBearer()
-
-
-def set_local_testing_on(test_user_uuid: str):
-    global _is_local_testing_on
-    global _test_user_uuid
-
-    _is_local_testing_on = True
-    _test_user_uuid = test_user_uuid
 
 
 def get_firebase_user(
         credentials: HTTPAuthorizationCredentials = Depends(_auth_scheme)
 ) -> str:
-    if _is_local_testing_on:
-        return _test_user_uuid
+    if get_is_local_testing_on():
+        return get_test_user_uuid()
 
     if not credentials:
         raise HTTPException(

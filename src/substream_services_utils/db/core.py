@@ -7,6 +7,7 @@ from google.cloud.firestore_v1 import Client
 
 from .firestore_wrappers import FirestoreCollection
 from .schemas import UserData, TranscriptionJobProgress, USER_DATA_COLLECTION, TRANSCRIPTION_JOB_PROGRESS_COLLECTION
+from ..config import get_is_local_testing_on, get_firebase_project_id
 
 
 class DataBaseAccess:
@@ -25,15 +26,10 @@ class DataBaseAccess:
 
 def init_firebase(
         firebase_service_account_key_path: str,
-        using_firebase_emulator=False,
-        firebase_emulator_project_id: str=None
 ):
-    if using_firebase_emulator:
-        if not firebase_emulator_project_id:
-            raise ValueError("firebase_emulator_project_id argument is None.")
-
+    if get_is_local_testing_on():
         cred = AnonymousCredentials()
-        options = {"projectId": firebase_emulator_project_id}
+        options = {"projectId": get_firebase_project_id()}
     else:
         cred = credentials.Certificate(firebase_service_account_key_path)
         options = {}
