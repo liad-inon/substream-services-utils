@@ -5,8 +5,10 @@ from pydantic import ValidationError
 class DbException(Exception):
     pass
 
+
 class NoneExistentResource(Exception):
     pass
+
 
 class NoneExistentDocumentError(NoneExistentResource):
     def __init__(self, document_ref: DocumentReference):
@@ -42,3 +44,5 @@ class InvalidDocumentSchema(DbException):
             f"The document at '{document_ref.path}' is not "
             f"compatible with the given schema: {validation_error}"
         )
+
+

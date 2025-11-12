@@ -2,12 +2,11 @@ from __future__ import annotations
 
 from typing import TypeVar, Generic, Type, Callable, Any
 
+from .exceptions import NoneExistentFieldError, InvalidDocumentSchema, SchemaTypeError, NoneExistentDocumentError
 from google.api_core.exceptions import AlreadyExists
 from google.cloud.exceptions import NotFound
 from google.cloud.firestore_v1 import DocumentReference, transactional, Client, Transaction
 from pydantic import BaseModel, ValidationError
-
-from app.db.exceptions import NoneExistentFieldError, InvalidDocumentSchema, SchemaTypeError, NoneExistentDocumentError
 
 DocumentType = TypeVar('DocumentType', bound=BaseModel)
 FieldType = TypeVar('FieldType')

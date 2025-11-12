@@ -1,30 +1,70 @@
-from google.cloud.firestore_v1 import Client
+# --- Core Public API ---
+from .core import (
+    DataBaseAccess,
+    init_firebase,
+    get_db_client
+)
 
-from firestore_wrappers import FirestoreCollection
-from schemas import UserData, TranscriptionJobProgress
+# --- Custom Exceptions ---
+from .exceptions import (
+    DbException,
+    InvalidDocumentSchema,
+    NoneExistentDocumentError,
+    NoneExistentFieldError,
+    NoneExistentResource,
+    SchemaTypeError,
+)
 
-# --- COLLECTION KEYS ---
-USER_DATA_COLLECTION = "userData"
-TRANSCRIPTION_JOB_PROGRESS_COLLECTION = "subtitlesCreationJobProgres"
+# --- Firestore Abstractions ---
+from .firestore_wrappers import (
+    DocumentType,
+    FieldType,
+    FirestoreCollection,
+    FirestoreDocument,
+    FirestoreField,
+)
 
-# --- userData FIELDS ---
-TRANSCRIPTION_MINUTES_LEFT_FIELD = "transcriptionMinutesLeft"
-USER_NAME_FIELD = "userName"
-SUBSCRIPTION_TYPE_FIELD = "subscriptionType"
+# --- Schema Definitions and Schema Constants ---
+from .schemas import (
+    STATUS_MESSAGE_FIELD,
+    SUBSCRIPTION_TYPE_FIELD,
+    TRANSCRIPTION_JOB_PROGRESS_COLLECTION,
+    TRANSCRIPTION_MINUTES_LEFT_FIELD,
+    USER_DATA_COLLECTION,
+    USER_NAME_FIELD,
+    TranscriptionJobProgress,
+    UserData,
+)
 
-# --- subtitlesCreationStatus FIELDS ---
-STATUS_MESSAGE_FIELD = "statusMessage"
 
+__all__ = [
+    # Core API
+    'DataBaseAccess',
+    'init_firebase',
+    'get_db_client',
 
-class DataBaseAccess:
-    def __init__(self, db_client: Client):
-        self.user_data = FirestoreCollection(
-            db_client,
-            USER_DATA_COLLECTION,
-            UserData
-        )
-        self.transcription_job_progress = FirestoreCollection(
-            db_client,
-            TRANSCRIPTION_JOB_PROGRESS_COLLECTION,
-            TranscriptionJobProgress
-        )
+    # Exceptions
+    'DbException',
+    'InvalidDocumentSchema',
+    'NoneExistentDocumentError',
+    'NoneExistentFieldError',
+    'NoneExistentResource',
+    'SchemaTypeError',
+
+    # Firestore Abstractions
+    'DocumentType',
+    'FieldType',
+    'FirestoreCollection',
+    'FirestoreDocument',
+    'FirestoreField',
+
+    # Schemas and Schema Constants
+    'STATUS_MESSAGE_FIELD',
+    'SUBSCRIPTION_TYPE_FIELD',
+    'TRANSCRIPTION_JOB_PROGRESS_COLLECTION',
+    'TRANSCRIPTION_MINUTES_LEFT_FIELD',
+    'USER_DATA_COLLECTION',
+    'USER_NAME_FIELD',
+    'TranscriptionJobProgress',
+    'UserData',
+]
