@@ -1,0 +1,15 @@
+[project]
+name = "substream-services-utils"
+version = "0.1.0"
+
+[build-system]
+requires = ["setuptools~=61.0"]
+build-backend = "setuptools.build_meta"
+
+dependencies = [
+    "fastapi~=0.115.12",
+    "firebase-admin~=6.9.0",
+    "pydantic~=2.11.5",
+    "google-auth~=2.40.3",
+    "loguru~=0.7.3",
+]
