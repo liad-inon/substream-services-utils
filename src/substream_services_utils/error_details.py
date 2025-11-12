@@ -27,3 +27,30 @@ class ErrorDetails(BaseModel):
                     " of the problem.",
         default=None
     )
+
+    @staticmethod
+    def create_as_dict_with_extending_fields(
+            type: str,
+            title: str,
+            status: int,
+            detail: str = None,
+            instance: str = None,
+            **extending_fields
+    ) -> dict:
+        error_details_dict = ErrorDetails(
+            type=type,
+            title=title,
+            status=status,
+            detail=detail,
+            instance=instance
+        ).model_dump(exclude_none=True)
+
+        if any(
+                (extending_key in error_details_dict.keys())
+                for extending_key in extending_fields.keys()
+        ):
+            raise ValueError("One of the extending parameters is overriding base ErrorDetails field.")
+
+        error_details_dict.update(**extending_fields)
+
+        return error_details_dict
