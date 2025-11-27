@@ -7,7 +7,7 @@ from google.cloud.firestore_v1 import Client
 
 from .firestore_wrappers import FirestoreCollection
 from .schemas import UserData, TranscriptionJobProgress, USER_DATA_COLLECTION, TRANSCRIPTION_JOB_PROGRESS_COLLECTION
-from ..config import get_is_local_testing_on, get_firebase_project_id
+from substream_services_utils.config import get_is_local_testing_on, get_firebase_project_id
 
 
 class DataBaseAccess:
